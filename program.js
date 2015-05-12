@@ -24,7 +24,7 @@ var data = [{
 
 app.use('/bundle.js', function(req, res) {
   res.setHeader('content-type', 'application/javascript');
-  browserify('./components/app.js')
+  browserify('./app.js')
     .transform('reactify')
     .bundle()
     .pipe(res);
@@ -37,7 +37,7 @@ app.use('/', function(req, res) {
   var markup = React.renderToString(React.createElement(TodoBox, {data: data}));
 
   res.render('index.ejs', {
-    initialData: innitialData,
+    initialData: initialData,
     markup: markup
   });
 });
