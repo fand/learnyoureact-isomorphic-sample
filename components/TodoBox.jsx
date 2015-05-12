@@ -40,7 +40,7 @@ var Todo = React.createClass({
   },
   handleChange: function (e) {
     this.setState({
-      checked: e.value
+      checked: e.target.checked
     });
   },
   render: function() {
