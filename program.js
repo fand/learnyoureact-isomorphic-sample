@@ -9,9 +9,11 @@ app.set('view engine', 'ejs');
 app.set('views', __dirname + '/views');
 app.engine('ejs', require('ejs').renderFile);
 
+// TodoBoxはjsxなのでnode-jsxが必要
 require('node-jsx').install();
 var TodoBox = require('./components/TodoBox.jsx');
 
+// 初期データ
 var data = [{
   title: 'Shopping',
   detail: process.argv[3]
@@ -29,9 +31,14 @@ app.use('/bundle.js', function(req, res) {
 });
 
 app.use('/', function(req, res) {
+  var initialData = JSON.stringify(data);
+
+  // サーバ側でレンダリングしたHTML
+  var markup = React.renderToString(React.createElement(TodoBox, {data: data}));
+
   res.render('index.ejs', {
-    initialData: JSON.stringify(data),
-    markup: React.renderToString(React.createElement(TodoBox, {data: data}))
+    initialData: innitialData,
+    markup: markup
   });
 });
 
